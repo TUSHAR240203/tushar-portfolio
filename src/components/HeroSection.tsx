@@ -7,7 +7,6 @@ export default function HeroSection() {
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <HeroScene />
 
-      {/* Overlay gradient */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background/30 via-transparent to-background" />
 
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
@@ -42,9 +41,7 @@ export default function HeroSection() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="font-body text-base sm:text-lg lg:text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed"
           >
-            Computer Science Student{' '}
-            <span className="text-primary">·</span> React Developer{' '}
-            <span className="text-primary">·</span> .NET Learner
+            Computer Science Student <span className="text-primary">·</span> React Developer <span className="text-primary">·</span> .NET Learner
           </motion.p>
 
           <motion.div
@@ -60,6 +57,7 @@ export default function HeroSection() {
               <FolderOpen size={16} />
               View Projects
             </a>
+
             <a
               href="#contact"
               className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-body font-semibold text-sm glass-card neon-border text-primary hover:bg-primary/10 transition-all duration-500"
@@ -67,12 +65,15 @@ export default function HeroSection() {
               <Mail size={16} />
               Contact Me
             </a>
+
+            {/* Resume Download Button */}
             <a
-              href="#"
+              href="/resume.pdf"
+              download
               className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-body font-semibold text-sm text-muted-foreground bg-secondary hover:text-foreground transition-all duration-300"
             >
               <Download size={16} />
-              Resume
+              Download Resume
             </a>
           </motion.div>
         </motion.div>

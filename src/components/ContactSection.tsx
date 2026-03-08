@@ -2,14 +2,35 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Mail, MapPin, Send, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
+import emailjs from '@emailjs/browser';
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent! Thank you for reaching out.');
-    setForm({ name: '', email: '', message: '' });
+    setLoading(true);
+
+    try {
+      await emailjs.send(
+        'service_8t59y7n',
+        'template_qmx86xb',
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        'CCgSkhkyoyADUHYZx'
+      );
+
+      toast.success('Message sent! Thank you for reaching out.');
+      setForm({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,6 +106,7 @@ export default function ContactSection() {
                 className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
               />
             </div>
+
             <textarea
               placeholder="Your message..."
               rows={5}
@@ -93,12 +115,14 @@ export default function ContactSection() {
               required
               className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all resize-none"
             />
+
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--glow-primary)] transition-all duration-500 hover-lift"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--glow-primary)] transition-all duration-500 hover-lift disabled:opacity-70 disabled:cursor-not-allowed"
             >
               <Send size={15} />
-              Send Message
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
           </motion.form>
         </div>
