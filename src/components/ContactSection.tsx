@@ -1,11 +1,9 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Mail, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Mail, MapPin, Send, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function ContactSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,82 +13,92 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 particle-bg">
-      <div className="container mx-auto max-w-4xl" ref={ref}>
+    <section id="contact" className="py-28 px-6 particle-bg">
+      <div className="container mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold neon-text mb-4">Get In Touch</h2>
-          <p className="font-body text-muted-foreground">Let's build something amazing together</p>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono tracking-wider mb-6">
+            <MessageSquare size={12} />
+            CONTACT
+          </div>
+          <h2 className="section-heading neon-text">Get In Touch</h2>
+          <p className="section-subheading">Let's build something amazing together</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-5 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-6"
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="md:col-span-2 space-y-4"
           >
-            <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Mail className="text-primary" size={20} />
+            <div className="glass-card rounded-2xl p-5 flex items-center gap-4 hover-lift">
+              <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Mail className="text-primary" size={18} />
               </div>
-              <div>
-                <p className="font-body text-xs text-muted-foreground">Email</p>
-                <p className="font-mono text-sm text-foreground">tushar.6036@gmail.com</p>
+              <div className="min-w-0">
+                <p className="font-body text-xs text-muted-foreground mb-0.5">Email</p>
+                <p className="font-mono text-sm text-foreground truncate">tushar.6036@gmail.com</p>
               </div>
             </div>
 
-            <div className="glass-card rounded-xl p-5 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <MapPin className="text-primary" size={20} />
+            <div className="glass-card rounded-2xl p-5 flex items-center gap-4 hover-lift">
+              <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <MapPin className="text-primary" size={18} />
               </div>
               <div>
-                <p className="font-body text-xs text-muted-foreground">Location</p>
-                <p className="font-mono text-sm text-foreground">Saharanpur, Uttar Pradesh, India</p>
+                <p className="font-body text-xs text-muted-foreground mb-0.5">Location</p>
+                <p className="font-mono text-sm text-foreground">Saharanpur, UP, India</p>
               </div>
             </div>
           </motion.div>
 
           <motion.form
             initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="glass-card rounded-xl p-6 space-y-4 neon-border"
+            className="md:col-span-3 glass-card rounded-2xl p-7 space-y-4 neon-border"
           >
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-            />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                required
+                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+                className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+              />
+            </div>
             <textarea
-              placeholder="Your Message"
-              rows={4}
+              placeholder="Your message..."
+              rows={5}
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               required
-              className="w-full px-4 py-3 rounded-lg bg-muted border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-secondary border border-border text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all resize-none"
             />
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--shadow-neon-cyan)] transition-all duration-300"
+              className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--glow-primary)] transition-all duration-500 hover-lift"
             >
-              <Send size={16} /> Send Message
+              <Send size={15} />
+              Send Message
             </button>
           </motion.form>
         </div>

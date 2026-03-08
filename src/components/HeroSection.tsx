@@ -1,67 +1,91 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, FolderOpen, Mail } from 'lucide-react';
+import { ArrowDown, FolderOpen, Mail, Download } from 'lucide-react';
 import HeroScene from './HeroScene';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden particle-bg">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <HeroScene />
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="font-mono text-sm text-primary tracking-widest uppercase mb-4"
-        >
-          Welcome to my world
-        </motion.p>
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background/30 via-transparent to-background" />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="font-display text-5xl sm:text-7xl lg:text-8xl font-black mb-6 neon-text leading-tight"
-        >
-          Tushar Sharma
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="font-body text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
-        >
-          Computer Science Student · React Developer · .NET Learner
-        </motion.p>
-
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-4"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <a
-            href="#projects"
-            className="group flex items-center gap-2 px-6 py-3 rounded-lg font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--shadow-neon-cyan)] transition-all duration-300"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="font-mono text-xs sm:text-sm text-primary tracking-[0.3em] uppercase mb-6"
           >
-            <FolderOpen size={18} /> View Projects
-          </a>
-          <a
-            href="#contact"
-            className="flex items-center gap-2 px-6 py-3 rounded-lg font-body font-semibold text-sm glass-card neon-border text-primary hover:bg-primary/10 transition-all duration-300"
+            Welcome to my portfolio
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 neon-text leading-[0.9] tracking-tight"
           >
-            <Mail size={18} /> Contact Me
-          </a>
+            Tushar
+            <br />
+            Sharma
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="font-body text-base sm:text-lg lg:text-xl text-muted-foreground mb-12 max-w-xl mx-auto leading-relaxed"
+          >
+            Computer Science Student{' '}
+            <span className="text-primary">·</span> React Developer{' '}
+            <span className="text-primary">·</span> .NET Learner
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex flex-wrap items-center justify-center gap-4"
+          >
+            <a
+              href="#projects"
+              className="group flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-body font-semibold text-sm text-primary-foreground bg-primary hover:shadow-[var(--glow-primary)] transition-all duration-500 hover-lift"
+            >
+              <FolderOpen size={16} />
+              View Projects
+            </a>
+            <a
+              href="#contact"
+              className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-body font-semibold text-sm glass-card neon-border text-primary hover:bg-primary/10 transition-all duration-500"
+            >
+              <Mail size={16} />
+              Contact Me
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl font-body font-semibold text-sm text-muted-foreground bg-secondary hover:text-foreground transition-all duration-300"
+            >
+              <Download size={16} />
+              Resume
+            </a>
+          </motion.div>
         </motion.div>
       </div>
 
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
       >
-        <ArrowDown className="text-muted-foreground" size={24} />
+        <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+          <ArrowDown size={20} />
+        </a>
       </motion.div>
     </section>
   );
