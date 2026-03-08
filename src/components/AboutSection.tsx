@@ -1,62 +1,76 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Briefcase, GraduationCap, Rocket } from 'lucide-react';
+import { Briefcase, GraduationCap, Rocket, Sparkles } from 'lucide-react';
 
 const cards = [
   {
     icon: GraduationCap,
     title: 'CS Student',
-    desc: 'Pursuing B.E. in Computer Science from Chandigarh University, building a strong foundation in software engineering.',
+    desc: 'Pursuing B.E. in Computer Science from Chandigarh University with a focus on modern software engineering.',
   },
   {
     icon: Briefcase,
     title: 'Capgemini Trainee',
-    desc: 'Currently undergoing industry training in C#, ASP.NET Core, MVC Architecture, Web API, and Microsoft Azure.',
+    desc: 'Industry training in C#, ASP.NET Core, MVC Architecture, Web API development, and Microsoft Azure cloud services.',
   },
   {
     icon: Rocket,
-    title: 'Full-Stack Aspirant',
-    desc: 'Passionate about building innovative solutions using React, .NET, and cloud technologies.',
+    title: 'Full-Stack Builder',
+    desc: 'Building innovative solutions with React, .NET, and cloud technologies. Passionate about clean, scalable code.',
   },
 ];
 
-export default function AboutSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } },
+};
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
+export default function AboutSection() {
   return (
-    <section id="about" className="py-24 px-6 particle-bg">
-      <div className="container mx-auto max-w-5xl" ref={ref}>
+    <section id="about" className="py-28 px-6 particle-bg">
+      <div className="container mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl font-bold neon-text mb-4">About Me</h2>
-          <p className="font-body text-muted-foreground max-w-2xl mx-auto">
-            A Computer Science student skilled in React, Python, C#, and .NET technologies with a strong interest in full-stack development.
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-mono tracking-wider mb-6">
+            <Sparkles size={12} />
+            ABOUT ME
+          </div>
+          <h2 className="section-heading neon-text">Who I Am</h2>
+          <p className="section-subheading">
+            A passionate Computer Science student skilled in React, Python, C#, and .NET, driven to build innovative full-stack solutions.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {cards.map((card, i) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          className="grid md:grid-cols-3 gap-6"
+        >
+          {cards.map((card) => (
             <motion.div
               key={card.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="glass-card rounded-xl p-6 hover:border-primary/40 transition-colors duration-300 group"
+              variants={cardVariants}
+              className="glass-card rounded-2xl p-7 hover-lift group"
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:shadow-[var(--shadow-neon-cyan)] transition-shadow">
-                <card.icon className="text-primary" size={24} />
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:neon-glow transition-shadow duration-500">
+                <card.icon className="text-primary" size={22} />
               </div>
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2">{card.title}</h3>
+              <h3 className="font-display text-lg font-bold text-foreground mb-2">{card.title}</h3>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
