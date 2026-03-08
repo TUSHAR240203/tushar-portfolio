@@ -14,14 +14,14 @@ export default function ContactSection() {
 
     try {
       await emailjs.send(
-        'service_8t59y7n',
-        'template_qmx86xb',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           name: form.name,
           email: form.email,
           message: form.message,
         },
-        'CCgSkhkyoyADUHYZx'
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       toast.success('Message sent! Thank you for reaching out.');
